@@ -1,0 +1,116 @@
+**********************************
+*****CodeSchool Sequel to SQL*****
+**********************************
+*Eunice Santos
+*November 27, 2017
+
+***Common Aggregate functions
+COUNT
+	Count(*) Counts all rows including null
+	Count (field) counts rows that are not null
+SUM	Sum adds sum of values
+AVG
+MAX
+MIN
+
+***Combine aggregate functions
+	SELECT MAX(field1), MIN (field2), 
+		FROM tablename
+***GROUP BY clause and HAVING  clause
+SELECT columnName, aggregateFunction(columnName)
+	FROM tableName
+	GROUP BY columnName;
+
+HAVING select based on criteria
+	HAVING count(*) >1
+
+***Normalization
+First Normal: no repeats in 1 column
+Second Normal: no redudancy in table
+
+***Column Constraints
+NOT NULL
+UNIQUE
+PRIMARY KEY
+
+CREATE TABLE tableName
+(id int,
+ var1 varchar(50) NOT NULL UNIQUE, 
+ var2 varchar(50)
+)
+;
+
+
+CREATE TABLE tableName
+(id int,
+ var1 varchar(50) PRIMARY KEY, 
+ var2 varchar(50)
+)
+;
+
+**Table constraints. one column or multiple columns
+CREATE TABLE tableName
+(id int,
+ var1 varchar(50), 
+ var2 varchar(50)
+ CONSTRAINT unique_constraintName UNIQUE (var1)
+)
+;
+
+
+
+***Value Constraints. uses relational db and references columns from multiple tables to place restrictions/constraints on values inserted to table.
+REFERENCES
+CHECK (var1 operation )
+
+CREATE TABLE tableName1
+(id int PRIMARY KEY, 
+ var1 int REFERENCES tableName2 (var1),
+ var2 varchar(50),
+ var3 varchar(15), 
+)
+;
+
+
+**Table constraints
+CREATE TABLE tableName1
+(
+id int PRIMARY KEY, 
+var1 int, 
+var2 varchar(50), 
+var3 varchar(15), 
+FOREIGN KEY (var1) REFERENCES (var1)
+)
+;
+
+
+
+***INNER JOIN.  gives all records in all tables
+SELECT sum(m.sales)
+FROM Movies m
+INNER JOIN Promotions p
+ON m.id=p.movie_id
+WHERE p.category= 'Non-cash'
+;
+
+***OUTER JOIN. gives selected records from left or right table
+
+SELECT *
+FROM tableName1   *this is the left table/
+LEFT OUTER JOIN tableName2
+ON tableName1.id=tableName2.id
+;
+
+***subquery
+SELECT m.title, SUM (m.sales)
+FROM Movies m
+WHERE id IN
+	(SELECT movie_id
+	FROM Promotions
+	WHERE category = 'Non-cash')
+;
+
+***correlated subquery
+SELECT * FROM tableName1 WHERE var1 > 
+ (SELECT AVG (var1) FROM tableName1)
+;
