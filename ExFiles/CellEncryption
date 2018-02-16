@@ -1,7 +1,3 @@
--- switch to the database
-USE WideWorldImporters;
-GO
-
 -- add a column to hold encrypted data
 ALTER TABLE Sales.Customers
 ADD CreditCard Varbinary(max);
