@@ -67,7 +67,7 @@ on
 
 
 
-/* ... now wiht alias, and there is no error */
+/* ... now with alias, and there is no error */
 select
   s.last_name, s.department, cd.company_division, cr.company_region
 from
